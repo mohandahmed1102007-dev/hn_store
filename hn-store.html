@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HN Store – The Best Games at Unbeatable Prices</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #a855f7;
+    --purple-dark: #7e22ce;
+    --bg: #111111;
+    --bg2: #191919;
+    --bg3: #1e1e1e;
+    --border: #2a2a2a;
+    --text: #ffffff;
+    --muted: #888888;
+    --light: #cccccc;
+  }
+
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* ─── NAV ─── */
+  nav {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 60px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.1rem; }
+  .logo i { color: var(--purple); font-size: 24px; }
+  .logo span { color: var(--purple); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--light); font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--purple); }
+  .nav-links a.active { color: var(--purple); border-bottom: 2px solid var(--purple); padding-bottom: 2px; }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .search-box {
+    background: #1a1a1a; border: 1px solid var(--border); border-radius: 8px;
+    display: flex; align-items: center; padding: 8px 14px; gap: 8px;
+  }
+  .search-box input { background: none; border: none; color: var(--text); outline: none; font-size: 13px; width: 180px; }
+  .search-box input::placeholder { color: var(--muted); }
+  .search-box i { color: var(--muted); font-size: 16px; }
+  .cart-btn {
+    background: none; border: none; color: var(--text); cursor: pointer;
+    position: relative; font-size: 22px; padding: 4px;
+  }
+  .cart-badge {
+    background: var(--purple); border-radius: 50%; width: 16px; height: 16px;
+    font-size: 10px; display: flex; align-items: center; justify-content: center;
+    position: absolute; top: 0; right: 0; font-weight: 700;
+  }
+  .login-btn {
+    background: var(--purple); color: #fff; border: none; border-radius: 8px;
+    padding: 9px 20px; font-size: 13px; cursor: pointer; font-weight: 700;
+    transition: background 0.2s;
+  }
+  .login-btn:hover { background: var(--purple-dark); }
+
+  /* ─── HERO ─── */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; padding: 4rem 2rem 3rem; min-height: 420px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 65% 50%, rgba(168,85,247,0.22) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-text { z-index: 1; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; }
+  .hero-text h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; color: var(--text); }
+  .hero-text h1 .accent { color: var(--purple); }
+  .hero-text p { color: #aaa; font-size: 15px; line-height: 1.7; max-width: 380px; }
+  .hero-btns { display: flex; gap: 14px; margin-top: 0.5rem; }
+  .btn-primary {
+    background: var(--purple); color: #fff; border: none; border-radius: 8px;
+    padding: 13px 26px; font-size: 14px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; gap: 8px; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--purple-dark); }
+  .btn-outline {
+    background: transparent; color: var(--text); border: 1.5px solid #555;
+    border-radius: 8px; padding: 13px 26px; font-size: 14px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    transition: border-color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
+  .hero-badges { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .badge-item { display: flex; flex-direction: column; gap: 2px; }
+  .badge-item i { color: var(--purple); font-size: 22px; }
+  .badge-item strong { font-size: 13px; font-weight: 700; color: var(--text); }
+  .badge-item span { font-size: 11px; color: var(--muted); }
+
+  /* Hero visual side */
+  .hero-visual { z-index: 1; display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-end; justify-content: center; }
+  .hero-game-art {
+    background: linear-gradient(135deg, #1a0a2e 0%, #0d0d1a 100%);
+    border: 1px solid #331a66; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 2rem; width: 100%; flex: 1;
+  }
+  .game-icons-row { display: flex; align-items: flex-end; gap: 1rem; }
+  .game-hero-card {
+    border-radius: 12px; border: 1px solid #442277; background: #1e0d3e;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; padding: 1rem; width: 90px;
+  }
+  .game-hero-card i { font-size: 36px; color: var(--purple); }
+  .game-hero-card span { font-size: 10px; color: #aaa; font-weight: 700; text-align: center; }
+  .game-hero-card.large { width: 110px; border-color: #6a35cc; background: #220e4a; }
+  .game-hero-card.large i { font-size: 48px; color: #c77dff; }
+  .platform-logos { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: flex-end; }
+  .platform-logo { display: flex; align-items: center; gap: 6px; color: #ccc; font-size: 13px; font-weight: 700; }
+  .platform-logo i { font-size: 20px; color: var(--purple); }
+
+  /* ─── DEALS ─── */
+  .deals { padding: 2.5rem 2rem; background: var(--bg); }
+  .deals-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+  .deals-title { display: flex; align-items: flex-start; gap: 12px; }
+  .accent-bar { width: 4px; background: var(--purple); border-radius: 4px; min-height: 38px; }
+  .deals-title h2 { font-size: 1.3rem; font-weight: 900; color: var(--text); }
+  .deals-title p { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .view-all {
+    background: transparent; border: 1.5px solid var(--purple); color: var(--purple);
+    border-radius: 20px; padding: 7px 18px; font-size: 13px; cursor: pointer;
+    font-weight: 700; display: flex; align-items: center; gap: 4px; transition: background 0.2s;
+  }
+  .view-all:hover { background: rgba(168,85,247,0.1); }
+  .deals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+  .deal-card {
+    background: var(--bg2); border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--border); transition: border-color 0.2s, transform 0.2s;
+  }
+  .deal-card:hover { border-color: var(--purple); transform: translateY(-3px); }
+  .deal-thumb {
+    height: 170px; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .deal-thumb.gta  { background: linear-gradient(135deg, #0a1a0a, #122a14); }
+  .deal-thumb.fc25 { background: linear-gradient(135deg, #071525, #0a2a40); }
+  .deal-thumb.rdr2 { background: linear-gradient(135deg, #1e0a00, #3a1200); }
+  .deal-thumb i { font-size: 72px; opacity: 0.55; }
+  .deal-thumb.gta  i { color: #4ade80; }
+  .deal-thumb.fc25 i { color: #60a5fa; }
+  .deal-thumb.rdr2 i { color: #f97316; }
+  .deal-tag {
+    position: absolute; top: 10px; left: 10px;
+    background: var(--purple); color: #fff;
+    font-size: 10px; font-weight: 800; padding: 3px 10px;
+    border-radius: 20px; letter-spacing: 0.5px;
+  }
+  .deal-info { padding: 1.1rem; }
+  .deal-info h3 { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .deal-price { color: var(--purple); font-size: 17px; font-weight: 900; margin-bottom: 12px; }
+  .deal-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .shop-btn {
+    background: var(--purple); color: #fff; border: none; border-radius: 7px;
+    padding: 9px 14px; font-size: 12px; font-weight: 800; cursor: pointer;
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .shop-btn:hover { background: var(--purple-dark); }
+  .deal-perks { display: flex; flex-direction: column; gap: 4px; }
+  .deal-perk { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
+  .deal-perk i { color: #4ade80; font-size: 13px; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { align-items: flex-start; }
+    .hero-game-art { display: none; }
+    .deals-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .deals-grid { grid-template-columns: 1fr; }
+    .hero-text h1 { font-size: 2.2rem; }
+    .hero-badges { gap: 1rem; }
+    .search-box { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">
+    <i class="ti ti-device-gamepad-2"></i>
+    HN <span>STORE</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#">Xbox</a></li>
+    <li><a href="#">PlayStation</a></li>
+    <li><a href="#">PUBG</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="search-box">
+      <i class="ti ti-search"></i>
+      <input type="text" placeholder="Search games…" />
+    </div>
+    <button class="cart-btn" aria-label="Cart">
+      <i class="ti ti-shopping-cart"></i>
+      <span class="cart-badge">0</span>
+    </button>
+    <button class="login-btn">Login / Register</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-text">
+    <h1>The Best Games<br>At <span class="accent">Unbeatable Prices</span></h1>
+    <p>Steam, PlayStation, Xbox and PUBG items with instant delivery and 100% secure payment.</p>
+    <div class="hero-btns">
+      <button class="btn-primary"><i class="ti ti-shopping-cart"></i> SHOP NOW</button>
+      <button class="btn-outline"><i class="ti ti-diamond"></i> VIEW DEALS</button>
+    </div>
+    <div class="hero-badges">
+      <div class="badge-item">
+        <i class="ti ti-bolt"></i>
+        <strong>Instant Delivery</strong>
+        <span>Get your items instantly</span>
+      </div>
+      <div class="badge-item">
+        <i class="ti ti-shield-check"></i>
+        <strong>Secure Payment</strong>
+        <span>100% secure &amp; safe</span>
+      </div>
+      <div class="badge-item">
+        <i class="ti ti-tag"></i>
+        <strong>Best Prices</strong>
+        <span>Unbeatable prices</span>
+      </div>
+      <div class="badge-item">
+        <i class="ti ti-headset"></i>
+        <strong>24/7 Support</strong>
+        <span>We're here to help</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-game-art">
+      <div class="game-icons-row">
+        <div class="game-hero-card">
+          <i class="ti ti-horse-toy"></i>
+          <span>RDR 2</span>
+        </div>
+        <div class="game-hero-card large">
+          <i class="ti ti-target"></i>
+          <span>PUBG</span>
+        </div>
+        <div class="game-hero-card">
+          <i class="ti ti-ball-football"></i>
+          <span>FC 25</span>
+        </div>
+      </div>
+    </div>
+    <div class="platform-logos">
+      <div class="platform-logo"><i class="ti ti-brand-steam"></i> STEAM</div>
+      <div class="platform-logo"><i class="ti ti-device-gamepad-2"></i> PlayStation</div>
+      <div class="platform-logo"><i class="ti ti-device-xbox"></i> XBOX</div>
+      <div class="platform-logo"><i class="ti ti-crosshair"></i> PUBG</div>
+    </div>
+  </div>
+</section>
+
+<!-- DEALS -->
+<section class="deals">
+  <div class="deals-header">
+    <div class="deals-title">
+      <div class="accent-bar"></div>
+      <div>
+        <h2>Deals</h2>
+        <p>Discover the best games at unbeatable prices</p>
+      </div>
+    </div>
+    <button class="view-all">View All Deals <i class="ti ti-chevron-right"></i></button>
+  </div>
+
+  <div class="deals-grid">
+    <!-- GTA V -->
+    <div class="deal-card">
+      <div class="deal-thumb gta">
+        <i class="ti ti-car"></i>
+        <span class="deal-tag">HOT</span>
+      </div>
+      <div class="deal-info">
+        <h3>Grand Theft Auto V</h3>
+        <div class="deal-price">600 EGP</div>
+        <div class="deal-footer">
+          <button class="shop-btn"><i class="ti ti-shopping-cart"></i> SHOP NOW</button>
+          <div class="deal-perks">
+            <div class="deal-perk"><i class="ti ti-circle-check"></i> Instant Delivery</div>
+            <div class="deal-perk"><i class="ti ti-shield-check"></i> 100% Secure</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EA FC 25 -->
+    <div class="deal-card">
+      <div class="deal-thumb fc25">
+        <i class="ti ti-ball-football"></i>
+        <span class="deal-tag">NEW</span>
+      </div>
+      <div class="deal-info">
+        <h3>EA FC 25</h3>
+        <div class="deal-price">1500 EGP</div>
+        <div class="deal-footer">
+          <button class="shop-btn"><i class="ti ti-shopping-cart"></i> SHOP NOW</button>
+          <div class="deal-perks">
+            <div class="deal-perk"><i class="ti ti-circle-check"></i> Instant Delivery</div>
+            <div class="deal-perk"><i class="ti ti-shield-check"></i> 100% Secure</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RDR2 -->
+    <div class="deal-card">
+      <div class="deal-thumb rdr2">
+        <i class="ti ti-horse-toy"></i>
+        <span class="deal-tag">DEAL</span>
+      </div>
+      <div class="deal-info">
+        <h3>Red Dead Redemption 2</h3>
+        <div class="deal-price">800 EGP</div>
+        <div class="deal-footer">
+          <button class="shop-btn"><i class="ti ti-shopping-cart"></i> SHOP NOW</button>
+          <div class="deal-perks">
+            <div class="deal-perk"><i class="ti ti-circle-check"></i> Instant Delivery</div>
+            <div class="deal-perk"><i class="ti ti-shield-check"></i> 100% Secure</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
